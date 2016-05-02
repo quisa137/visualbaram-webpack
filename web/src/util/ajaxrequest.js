@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import fetch from 'fetch';
 import Promise from 'bluebird';
 import async from 'async';
+import fetch from 'fetch';
 
 class AjaxRequest {
   constructor() {
