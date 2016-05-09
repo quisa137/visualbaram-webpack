@@ -19,7 +19,7 @@ module.exports = {
         test: /.jsx?$/,
         /*loaders: ['babel','babel-loader'],*/
         loader:'babel-loader',
-        include: path.join(__dirname,'scripts'),
+        /*include: path.join(__dirname,'scripts'),*/
         exclude: /node_modules/,
         query: {
           presets: ['es2015', 'react']
@@ -42,7 +42,7 @@ module.exports = {
       'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve('./', 'index.html'),
+      template: path.resolve('./web/', 'index.html'),
       webpackDevServer: '/webpack-dev-server.js'
     })
   ]
