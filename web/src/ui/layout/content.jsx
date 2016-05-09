@@ -1,10 +1,10 @@
+/*eslint jsx-quotes: ["error", "prefer-single"]*/
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Ajax from '../../util/ajaxrequest.js';
 import Counts from '../../util/counts.js';
 import DateHistogram from '../visualization/datehistogram.jsx';
 
-class Content extends React.Component {
+export default class Content extends React.Component {
   //생성자
   constructor(props) {
     super(props);
@@ -15,11 +15,14 @@ class Content extends React.Component {
         'data':[]
       }
     };
+    this.isMount = false;
     this.dataMapping.bind(this);
     this.getData();
   }
   componentDidMount() {
-    this.timer = setInterval(this.getData.bind(this), 10000);
+    if(this.isMount == false) {
+      this.timer = setInterval(this.getData.bind(this), 10000);
+    }
     this.isMount = true;
   }
   getData() {
@@ -64,6 +67,6 @@ class Content extends React.Component {
     );
   }
 }
-ContentModule.propTypes = {
+Content.propTypes = {
   grpData:React.PropTypes.object
 };

@@ -1,6 +1,7 @@
+/*eslint jsx-quotes: ["error", "prefer-single"]*/
 import moment from 'moment-timezone';
 
-class StringToMoment{
+export default class StringToMoment{
   constructor(dateStr){
     this.dateStr = dateStr;
     this.abber = {

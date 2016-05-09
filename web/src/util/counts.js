@@ -1,3 +1,4 @@
+/*eslint jsx-quotes: ["error", "prefer-single"]*/
 /**
 그래프 시간 간격에 대한 로직
 1. 해당 시간대에 속한 인덱스들을 모두 찾아온다.
@@ -9,8 +10,9 @@ import _ from 'lodash';
 import moment from 'moment-timezone';
 import AjaxRequest from './ajaxrequest.js';
 import StringToMoment from './stringtomoment.js';
+import Promise from 'bluebird';
 
-class countsLoader{
+export default class countsLoader{
   constructor(timeText='~',react){
     this.BAR_CNT_PER_ONE_PAGE = 60;
     this.reactInstance = react;
@@ -76,11 +78,11 @@ class countsLoader{
     }
     function getFieldStats(){
       let bodyField = {
-        "fields":["@timestamp"],
-        "index_constraints":{
-          "@timestamp":{
-            "max_value":{"gte":this.dateTimes[0].format('x'),"format":"epoch_millis"},
-            "min_value":{"lte":this.dateTimes[1].format('x'),"format":"epoch_millis"}
+        'fields':['@timestamp'],
+        'index_constraints':{
+          '@timestamp':{
+            'max_value':{'gte':this.dateTimes[0].format('x'),'format':'epoch_millis'},
+            'min_value':{'lte':this.dateTimes[1].format('x'),'format':'epoch_millis'}
           }
         }
       };
@@ -90,65 +92,65 @@ class countsLoader{
     function searchOnMultiIndex(resp){
       let indices = resp.indices;
       let bodyField = [
-      {"index":[],"ignore_unavailable":true},
+      {'index':[],'ignore_unavailable':true},
       {
-        "size":0,
-        "sort":[{
-          "@timestamp":{
-            "order":"desc",
-            "unmapped_type":"boolean"
+        'size':0,
+        'sort':[{
+          '@timestamp':{
+            'order':'desc',
+            'unmapped_type':'boolean'
           }
         }],
-        "query":{
-          "filtered":{
-            "query":{
-              "query_string":{
-                "analyze_wildcard":true,
-                "query":"*"
+        'query':{
+          'filtered':{
+            'query':{
+              'query_string':{
+                'analyze_wildcard':true,
+                'query':'*'
               }
             },
-            "filter":{
-              "bool":{
-                "must":[{
-                  "range":{
-                    "@timestamp":{
-                      "gte":parseInt(this.dateTimes[0].format('x')),
-                      "lte":parseInt(this.dateTimes[1].format('x')),
-                      "format":"epoch_millis"
+            'filter':{
+              'bool':{
+                'must':[{
+                  'range':{
+                    '@timestamp':{
+                      'gte':parseInt(this.dateTimes[0].format('x')),
+                      'lte':parseInt(this.dateTimes[1].format('x')),
+                      'format':'epoch_millis'
                     }
                   }
                 }],
-                "must_not":[]
+                'must_not':[]
               }
             }
           }
         },
-        "highlight":{
-          "pre_tags":["@kibana-highlighted-field@"],
-          "post_tags":["@/kibana-highlighted-field@"],
-          "fields":{
-            "*":{}
+        'highlight':{
+          'pre_tags':['@kibana-highlighted-field@'],
+          'post_tags':['@/kibana-highlighted-field@'],
+          'fields':{
+            '*':{}
           },
-          "require_field_match":false,
-          "fragment_size":2147483647
+          'require_field_match':false,
+          'fragment_size':2147483647
         },
-        "aggs":{
-          "2":{
-            "date_histogram":{
-              "field":"@timestamp",
-              "interval":this.chartInterval,
-              "time_zone":this.currentTimeZone,
-              "min_doc_count":0,
-              "extended_bounds":{
-                "min":parseInt(this.dateTimes[0].format('x')),
-                "max":parseInt(this.dateTimes[1].format('x'))
+        'aggs':{
+          '2':{
+            'date_histogram':{
+              'field':'@timestamp',
+              'interval':this.chartInterval,
+              'time_zone':this.currentTimeZone,
+              'min_doc_count':0,
+              'extended_bounds':{
+                'min':parseInt(this.dateTimes[0].format('x')),
+                'max':parseInt(this.dateTimes[1].format('x'))
               }
             }
           }
         },
-        "fields":["*","_source"],
-        "script_fields":{},
-        "fielddata_fields":["@timestamp","received_at"]
+        'fields':['*','_source'],
+        'script_fields':{},
+        'fielddata_fields':['@timestamp','received_at']
       }];
 
       let LIMIT = 500,
@@ -161,7 +163,7 @@ class countsLoader{
        - 해당 방법은 bluebird의 설정 중에 동시 요청 수를 제한하여 해결하기로 한다.
       */
       for(indexName in indices) {
-        if(_.isString(indexName) && indexName !== "") {
+        if(_.isString(indexName) && indexName !== '') {
           let target = bodyField[0];
           let options = bodyField[1];
           target.index[0] = indexName;
@@ -188,7 +190,7 @@ class countsLoader{
       if(promises.length >0) {
         return Promise.all(promises);
       }else {
-        return Promise.reject("No indices");
+        return Promise.reject('No indices');
       }
     }
     function convertData(values) {
@@ -221,7 +223,7 @@ class countsLoader{
       }
     }
     function defaultData(value) {
-      if(value === "No indices") {
+      if(value === 'No indices') {
         return {
           interval:this.chartIntervalText,
           data:[]

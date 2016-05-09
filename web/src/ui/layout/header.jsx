@@ -1,5 +1,7 @@
+/*eslint jsx-quotes: ["error", "prefer-single"]*/
 import React from 'react';
-class Header extends React.Component {
+
+export default class Header extends React.Component {
   constructor() {
     super();
   }

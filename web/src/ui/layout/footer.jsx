@@ -1,5 +1,6 @@
+/*eslint jsx-quotes: ["error", "prefer-single"]*/
 import React from 'react';
-class Footer extends React.Component {
+export default class Footer extends React.Component {
   /*
   <div className="ui center aligned container">
     <div className="ui stackable inverted divided grid">

@@ -1,9 +1,10 @@
+/*eslint jsx-quotes: ["error", "prefer-single"]*/
 import _ from 'lodash';
 import Promise from 'bluebird';
 import async from 'async';
-import fetch from 'fetch';
+import fetch from 'imports?this=>global!exports?global.fetch!whatwg-fetch';
 
-class AjaxRequest {
+export default class AjaxRequest {
   constructor() {
     this.defaultHeaders = {
       'accept':'application/json, text/plain, */*',

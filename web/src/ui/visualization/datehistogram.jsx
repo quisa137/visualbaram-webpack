@@ -1,10 +1,11 @@
+/*eslint jsx-quotes: ["error", "prefer-single"]*/
 import _ from 'lodash';
 import React from 'react';
 import moment from 'moment';
 import d3 from 'd3';
-import d3tip from 'd3tip';
+import d3tip from 'd3-tip';
 
-class DateHistogram extends React.Component {
+export default class DateHistogram extends React.Component {
   constructor(props) {
     super(props);
     this.state = {grpData:[]};

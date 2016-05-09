@@ -1,25 +1,53 @@
+/*eslint jsx-quotes: ["error", "prefer-single"]*/
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
-  target:"web",
+  target:'web',
   entry: [
     'webpack-dev-server/client?http://localhost:5000',
     'webpack/hot/dev-server',
-    './web/main.jsx'
+    './web/src/main.js'
   ],
-  output: { path: __dirname, filename: 'web/bundle.js',publicPath:'/web/'},
+  output: {
+    path: __dirname,
+    filename: 'bundle.js',
+    publicPath:'/'
+  },
+  'resolveLoader': {
+    root: path.join(__dirname, 'node_modules')
+  },
   resolve: {
-    extensions: ['', '.js']
+    /*
+    alias:{
+      'fetch':'imports?this=>global!exports?global.fetch!whatwg-fetch'
+    },
+    */
+    modulesDirectories: ['web_modules', 'node_modules', 'bower_components'],
+    extensions: ['', '.js', '.jsx','.scss']
+  },
+ stats: {
+      colors: true,
+      reasons: true,
   },
   devtool: 'eval-source-map',
   module: {
     loaders: [
       {
+        test: /\.s?css$/,
+        exclude: /node_modules/,
+        loaders: [
+            'style',
+            'css',
+            'autoprefixer?browsers=last 2 version',
+            'sass?' + ['outputStyle=nested'].join('&')
+        ]
+      },
+      {
         test: /.jsx?$/,
         /*loaders: ['babel','babel-loader'],*/
         loader:'babel-loader',
-        /*include: path.join(__dirname,'scripts'),*/
+        include: path.join(__dirname,'web','src'),
         exclude: /node_modules/,
         query: {
           presets: ['es2015', 'react']
@@ -36,14 +64,19 @@ module.exports = {
   },
   plugins:[
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
     new webpack.ProvidePlugin({
-      'Promise': 'bluebird', // Thanks Aaron (https://gist.github.com/Couto/b29676dd1ab8714a818f#gistcomment-1584602)
+      'Promise': 'bluebird',
       'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     }),
+    new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve('./web/', 'index.html'),
       webpackDevServer: '/webpack-dev-server.js'
-    })
+    }),
+    /*
+    new webpack.ResolverPlugin(
+      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
+    )
+    */
   ]
 };
