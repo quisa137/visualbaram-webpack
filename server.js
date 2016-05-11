@@ -12,6 +12,15 @@ new WebpackDevServer(webpack(config), {
   hot: true,
   historyApiFallback: true,
   stats: {colors: true},
+  proxy:{
+    '/api/es/*':{
+      target:'http://192.168.0.124:9200',
+      secure:false,
+      rewrite:function(req) {
+        req.url = req.url.replace(/^\/api\/es/,'');
+      }
+    }
+  }
   /*lazy: true*/
 }).listen(5000, 'localhost', function (err) {
     if (err) {

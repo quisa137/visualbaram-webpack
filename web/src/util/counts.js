@@ -59,7 +59,7 @@ export default class countsLoader{
     function loadData(searchUri,method,body) {
       let ajaxReq = new AjaxRequest();
       return ajaxReq.request({
-        uri:'/api/ElasticSearch/' + searchUri,
+        uri:'/api/es/' + searchUri,
         method:method,
         body:body
       }).then(function(resp) {

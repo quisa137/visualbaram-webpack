@@ -25,6 +25,10 @@ export default class Content extends React.Component {
     }
     this.isMount = true;
   }
+  componentWillUnmount () {
+    this.isMount = false;
+    clearInterval(this.timer);
+  }
   getData() {
     let counts = new Counts(this.state.grpData.minDate +' ~ ' +this.state.grpData.maxDate,this);
 
