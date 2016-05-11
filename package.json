@@ -4,8 +4,12 @@
   "description": "",
   "main": "web/main.js",
   "scripts": {
-    "start": "node server.js",
-    "build": "BABEL_ENV=production ./node_modules/.bin/webpack --config webpack.config.production.js",
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:dev": "webpack-dev-server --port 5000 --inline --content-base web/ --history-api-fallback",
+    "start:prod": "npm run build && node server.bundle.js",
+    "build:client": "./node_modules/.bin/webpack",
+    "build:server": "./node_modules/.bin/webpack --config webpack.server.config.js",
+    "build": "npm run build:client && npm run build:server",
     "lint": "./node_modules/.bin/eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -33,6 +37,7 @@
     "moment-timezone": "^0.5.3",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
+    "react-router": "^2.4.0",
     "redux": "^3.5.2",
     "whatwg-fetch": "^1.0.0"
   },
