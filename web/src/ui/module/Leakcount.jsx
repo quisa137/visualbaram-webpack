@@ -1,8 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
-semantic;
 import moment from 'moment';
 import daterangepicker from 'semantic-ui-daterangepicker';
+import _ from 'lodash';
 
 
 class Leakcount extends React.Component {
@@ -12,7 +12,22 @@ class Leakcount extends React.Component {
     }
     componentDidMount() {
       $('.ui.toggle.checkbox').checkbox();
-      $('.ui.toggle.button');
+      $('.ui.toggle.button').click(function(e){
+        e.preventDefault();
+        var t =$(this);
+        if(t.hasClass('basic'))
+          t.removeClass('basic').addClass('colored');
+        else
+          t.removeClass('colored').addClass('basic');
+      });
+      $('.ui.toggle.checkbox > [type=checkbox]').change(function(e){
+        e.preventDefault();
+        var t = $(this);
+        if(t.prop('checked')){
+          $('ui.toggle.button')
+        }
+
+      });
     }
     render() {
         return (

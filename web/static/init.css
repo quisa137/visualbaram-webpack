@@ -78,19 +78,19 @@
 }
 
 @media only screen and (min-width:1600px) {
-  .ui.container {
+  .ui.container.graphOnly {
       width: 100%;
   }
-  .ui.text.container {
+  .ui.text.container.graphOnly {
       max-width: 100%!important;
   }
-  .ui.grid.container {
+  .ui.grid.container.graphOnly {
     width: calc(100% + 2rem)!important
   }
-  .ui.relaxed.grid.container {
+  .ui.relaxed.grid.container.graphOnly {
     width: calc(100% + 3rem)!important
   }
-  .ui.very.relaxed.grid.container {
+  .ui.very.relaxed.grid.container.graphOnly {
     width: calc(100% + 5rem)!important
   }
 }

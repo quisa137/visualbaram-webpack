@@ -59,7 +59,7 @@ export default class Logcount extends React.Component {
     */
 
     return (
-    <div className="ui main text container padded grid">
+    <div className="ui main text container padded grid graphOnly">
       <div className="center">
         <ul>
           <li><span>From to : </span>( {this.state.grpData.minDate} ~ {this.state.grpData.maxDate} )</li>

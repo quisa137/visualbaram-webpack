@@ -48,16 +48,19 @@ module.exports = {
     module: {
       loaders: [
         {
-          test: /\.s?css$/,
+          test: /\.css$/,
           exclude: /node_modules/,
           loaders: [
-            "style-loader!css-loader",
             'style',
             'css',
-            'autoprefixer?browsers=last 2 version',
-            'sass?' + ['outputStyle=nested'].join('&'),
-
+            // 'autoprefixer?browsers=last 2 version',
+            // 'style-loader!css-loader'
           ]
+        },
+        {
+          test: /\.scss$/,
+          exclude: /node_modules/,
+          loader:'sass?' + ['outputStyle=nested'].join('&'),
         },
         {
           test: /.jsx?$/,
@@ -77,12 +80,12 @@ module.exports = {
           }
         },
         {
-          test: /\.(woff|svg|ttf|eot)([\?]?.*)$/,
+          test: /\.(woff|svg|ttf|eot|png|gif|jpg)([\?]?.*)$/,
           loader: "file-loader?name=[name].[ext]"
         }
       ]
     },
-    plugins:process.env.NODE_ENV === 'production' ?[
+    plugins:process.env.NODE_ENV === 'production'?[
       //production mode
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.OccurrenceOrderPlugin(),
@@ -99,7 +102,7 @@ module.exports = {
     ] : [
       //development mode
       new webpack.HotModuleReplacementPlugin(),
-      //new webpack.NoErrorsPlugin(),
+      new webpack.NoErrorsPlugin(),
 
       // new BowerWebpackPlugin({
       //     modulesDirectories: [path.join(__dirname,"/bower_components")],
@@ -113,7 +116,7 @@ module.exports = {
         'jQuery':'jquery',
         'Promise': 'bluebird',
         'semantic':path.join(__dirname,'web','semantic','semantic.min')
-      })
+      }),
       new HtmlWebpackPlugin({
         template: path.resolve('./web/', 'index.html'),
 
