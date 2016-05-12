@@ -6,7 +6,7 @@ class Snssearch extends React.Component {
         this.displayName = 'Snssearch';
     }
     render() {
-        return <div>Snssearch</div>;
+        return <div className="ui main text container padded grid"><div>Snssearch</div></div>;
     }
 }
 

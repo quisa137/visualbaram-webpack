@@ -1,5 +1,6 @@
 /*eslint jsx-quotes: ["error", "prefer-single"]*/
 import React from 'react';
+semantic;
 export default class Footer extends React.Component {
   /*
   <div className="ui center aligned container">
@@ -47,9 +48,9 @@ export default class Footer extends React.Component {
   */
   render() {
     return(
-    <div className="ui inverted vertical footer segment middle">
-    Jindata Copyright. Rights All Reserved by Jindata
-    </div>
+      <div className="ui bottom fixed menu inverted">
+        <div className="ui container inverted vertical middle center aligned segment">Jindata Copyright. Rights All Reserved by Jindata</div>
+      </div>
     );
   }
 }

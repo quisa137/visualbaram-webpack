@@ -2,6 +2,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var BowerWebpackPlugin = require("bower-webpack-plugin");
 var publicPath = '/';
 module.exports = {
     name: 'browser',
@@ -20,13 +21,8 @@ module.exports = {
       root: path.join(__dirname, 'node_modules')
     },
     resolve: {
-      /*
-      alias:{
-        'fetch':'imports?this=>global!exports?global.fetch!whatwg-fetch'
-      },
-      */
       modulesDirectories: ['web_modules', 'node_modules', 'bower_components'],
-      extensions: ['', '.js', '.jsx','.scss']
+      extensions: ['', '.js', '.jsx','.scss','.css']
     },
     devtool: 'eval-source-map',
     devServer: {
@@ -55,10 +51,12 @@ module.exports = {
           test: /\.s?css$/,
           exclude: /node_modules/,
           loaders: [
+            "style-loader!css-loader",
             'style',
             'css',
             'autoprefixer?browsers=last 2 version',
-            'sass?' + ['outputStyle=nested'].join('&')
+            'sass?' + ['outputStyle=nested'].join('&'),
+
           ]
         },
         {
@@ -77,6 +75,10 @@ module.exports = {
           query: {
             mimetype:'application/json'
           }
+        },
+        {
+          test: /\.(woff|svg|ttf|eot)([\?]?.*)$/,
+          loader: "file-loader?name=[name].[ext]"
         }
       ]
     },
@@ -97,19 +99,26 @@ module.exports = {
     ] : [
       //development mode
       new webpack.HotModuleReplacementPlugin(),
+      //new webpack.NoErrorsPlugin(),
+
+      // new BowerWebpackPlugin({
+      //     modulesDirectories: [path.join(__dirname,"/bower_components")],
+      //     manifestFiles:      ["bower.json",".bower.json"],
+      //     includes:           /.*/,
+      //     excludes:           ['debug',/.*\.less/],
+      //     searchResolveModulesDirectories: false
+      // }),
       new webpack.ProvidePlugin({
-        'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch',
-        'window.fetch':'imports?this=>global!exports?global.fetch!whatwg-fetch'
-      }),
-      new webpack.ProvidePlugin({
+        '$':'jquery',
+        'jQuery':'jquery',
         'Promise': 'bluebird',
-      }),
-      new webpack.NoErrorsPlugin(),
-      /*
+        'semantic':path.join(__dirname,'web','semantic','semantic.min')
+      })
       new HtmlWebpackPlugin({
         template: path.resolve('./web/', 'index.html'),
-        webpackDevServer: '/webpack-dev-server.js'
+
       }),
+      /*
       new webpack.ResolverPlugin(
         new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
       )

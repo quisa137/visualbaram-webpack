@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Header from './ui/layout/header';
-import Content from './ui/layout/content';
-import Footer from './ui/layout/footer';
+import Header from './header';
+//import Content from './content';
+import Footer from './footer';
 
 export default class Frame extends React.Component {
   render() {

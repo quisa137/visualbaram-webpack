@@ -59,6 +59,23 @@
   top: 100%;
   left: 0;
 }
+.ui.fixed.footer {
+  position: fixed;
+  bottom: 0;
+  left:0;
+  min-width: 100%
+}
+
+.margin7em {
+  margin-top: 7em;
+}
+.marginRight20 {
+  margin-right: 20px;
+}
+.field.types .ui.button {
+  padding: 7px;
+  margin: 0px 3px;
+}
 
 @media only screen and (min-width:1600px) {
   .ui.container {

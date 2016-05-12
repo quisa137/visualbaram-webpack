@@ -11,16 +11,14 @@ export default class Header extends React.Component {
     return (
       <div className="ui fixed inverted yellow menu">
         <div className="ui container">
-          <a href="#" className="header item">
+          <a href="/" className="header item">
             <i className="arrow right icon"></i>
             Baram Home
           </a>
-          <a href="#" className="item">Monitoring</a>
           <div className="ui simple dropdown item">
             Visualization <i className="dropdown icon"></i>
             <div className="menu">
-              <a className="item" href="#">Link Item</a>
-              <a className="item" href="#">Link Item</a>
+              <a className="item" href="/leak">Leakcount</a>
               <div className="divider"></div>
               <div className="header">Header Item</div>
               <div className="item">
@@ -34,8 +32,7 @@ export default class Header extends React.Component {
               <a className="item" href="#">Link Item</a>
             </div>
           </div>
-          <a href="#" className="item">Dashboard</a>
-          <a href="#" className="item">Search</a>
+          <a href="/search" className="item">Search</a>
         </div>
       </div>
     );
