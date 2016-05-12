@@ -3,7 +3,9 @@ import $ from 'jquery';
 import moment from 'moment';
 import daterangepicker from 'semantic-ui-daterangepicker';
 import _ from 'lodash';
-
+import Ajax from '../../util/ajaxrequest.js';
+import Counts from '../../util/counts.js';
+import DateHistogram from '../visualization/datehistogram.jsx';
 
 class Leakcount extends React.Component {
     constructor(props) {
@@ -24,7 +26,7 @@ class Leakcount extends React.Component {
         e.preventDefault();
         var t = $(this);
         if(t.prop('checked')){
-          $('ui.toggle.button')
+          _($('ui.toggle.button')[0])
         }
 
       });

@@ -24,7 +24,7 @@ module.exports = {
       modulesDirectories: ['web_modules', 'node_modules', 'bower_components'],
       extensions: ['', '.js', '.jsx','.scss','.css']
     },
-    devtool: 'eval-source-map',
+    devtool: 'eval-cheap-module-source-map',
     devServer: {
       contentBase:path.join(__dirname,'web'),
       path:path.join(__dirname,'web'),
@@ -51,10 +51,10 @@ module.exports = {
           test: /\.css$/,
           exclude: /node_modules/,
           loaders: [
-            'style',
-            'css',
             // 'autoprefixer?browsers=last 2 version',
-            // 'style-loader!css-loader'
+            'style',
+            'css'
+            // ,'style-loader!css-loader'
           ]
         },
         {
@@ -119,7 +119,6 @@ module.exports = {
       }),
       new HtmlWebpackPlugin({
         template: path.resolve('./web/', 'index.html'),
-
       }),
       /*
       new webpack.ResolverPlugin(
