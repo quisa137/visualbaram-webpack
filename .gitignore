@@ -23,4 +23,4 @@ web/src/theme.config
 web/src/theme.less
 web/tasks
 web/dist
-web/modules/semantic-ui
+web/semantic
