@@ -1,7 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
 import moment from 'moment';
-import daterangepicker from 'semantic-ui-daterangepicker';
 import _ from 'lodash';
 import Ajax from '../../util/ajaxrequest.js';
 import Counts from '../../util/counts.js';
@@ -26,9 +25,14 @@ class Leakcount extends React.Component {
         e.preventDefault();
         var t = $(this);
         if(t.prop('checked')){
-          _($('ui.toggle.button')[0])
+          $('.ui.toggle.button').each(function(i,item){
+            $(item).removeClass('basic').addClass('colored');
+          });
+        }else{
+          $('.ui.toggle.button').each(function(i,item){
+            $(item).removeClass('colored').addClass('basic');
+          });
         }
-
       });
     }
     render() {
@@ -59,7 +63,15 @@ class Leakcount extends React.Component {
                 </div>
                 <div className="field date_select">
                   <label>기간</label>
-                  <div className="field"></div>
+                  <div className="inline fields">
+                    <div className="ui input four wide field">
+                      <input type="datetime-local" name="startDate" autoComplete="true"/>
+                    </div>
+                    <div className="field"> ~ </div>
+                    <div className="ui input four wide field">
+                      <input type="datetime-local" name="endDate"/>
+                    </div>
+                  </div>
                 </div>
                 <div className="field location">
                   <div className="two fields">
@@ -71,7 +83,9 @@ class Leakcount extends React.Component {
                     </dif>
                     <dif className="field">
                       <label>단위</label>
-                      <div className="field"></div>
+                      <div className="field">
+
+                      </div>
                     </dif>
                   </div>
                 </div>

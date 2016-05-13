@@ -10,7 +10,7 @@ export default class Logcount extends React.Component {
     super(props);
     this.state = {
       'grpData':{
-        'minDate':'now-2h',
+        'minDate':'now-240h',
         'maxDate':'now',
         'data':[]
       }
