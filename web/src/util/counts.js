@@ -17,16 +17,22 @@ export default class countsLoader{
     this.BAR_CNT_PER_ONE_PAGE = 60;
     this.reactInstance = react;
     this.currentTimeZone = moment.tz.guess();
-    /*
-    this.dateTimes = _.map(timeText.split('~'),function(item){
-      return moment(item.trim());
-    });
-    */
-    let strtomoment = new StringToMoment(timeText);
-    this.dateTimes = strtomoment.parse();
 
-    this.chartInterval = setChartInterval.bind(this)();
-    this.chartIntervalText = strtomoment.stringify(this.chartInterval);
+
+    if(timeText.indexOf('now')> -1) {
+      let strtomoment = new StringToMoment(timeText);
+      this.dateTimes = strtomoment.parse();
+      this.chartInterval = setChartInterval.bind(this)();
+      this.chartIntervalText = strtomoment.stringify(this.chartInterval);
+    }else{
+      this.dateTimes = _.map(timeText.split('~'),function(item){
+        return moment(item.trim());
+      });
+      this.chartInterval = setChartInterval.bind(this)();
+      this.chartIntervalText = "2h";
+    }
+
+
 
     function setChartInterval() {
       if(this.dateTimes.length===2) {
