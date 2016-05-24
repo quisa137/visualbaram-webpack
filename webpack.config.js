@@ -2,12 +2,14 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var BowerWebpackPlugin = require("bower-webpack-plugin");
 var publicPath = '/';
 module.exports = {
+    cache:true,
+    debug:true,
     name: 'browser',
     target:'web',
     entry: [
+      "bootstrap-webpack!./bootstrap.config.js",
       'webpack-dev-server/client?http://localhost:5000',
       'webpack/hot/dev-server',
       './web/src/main.jsx'
@@ -24,7 +26,7 @@ module.exports = {
       modulesDirectories: ['web_modules', 'node_modules', 'bower_components'],
       extensions: ['', '.js', '.jsx','.scss','.css']
     },
-    devtool: 'eval-cheap-module-source-map',
+    devtool: process.env.NODE_ENV === 'production'?'eval-source-map':'source-map',
     devServer: {
       contentBase:path.join(__dirname,'web'),
       path:path.join(__dirname,'web'),
@@ -35,6 +37,7 @@ module.exports = {
         colors: true,
         reasons: true
       },
+      /*
       proxy:{
         '/api/es/*':{
           target:'http://192.168.0.124:9200',
@@ -44,6 +47,7 @@ module.exports = {
           }
         }
       }
+      */
     },
     module: {
       loaders: [
@@ -63,11 +67,11 @@ module.exports = {
           loader:'sass?' + ['outputStyle=nested'].join('&'),
         },
         {
-          test: /.jsx?$/,
+          test: /.js[x]?$/,
           /*loaders: ['babel','babel-loader'],*/
           loader:'babel-loader',
           include: path.join(__dirname,'web','src'),
-          exclude: /node_modules/,
+          exclude: /(node_modules|bower_components)/,
           query: {
             presets: ['es2015', 'react']
           }
@@ -80,7 +84,19 @@ module.exports = {
           }
         },
         {
-          test: /\.(woff|svg|ttf|eot|png|gif|jpg)([\?]?.*)$/,
+          test: /\.less$/,
+          loaders: ['style', 'css', 'less']
+        },
+        {
+          test: /\.woff$/,
+          loader: "url-loader?limit=10000&mimetype=application/font-woff&name=[path][name].[ext]"
+        },
+        {
+          test: /\.woff2$/,
+          loader: "url-loader?limit=10000&mimetype=application/font-woff2&name=[path][name].[ext]"
+        },
+        {
+          test: /\.(svg|ttf|eot|png|gif|jpg)([\?]?.*)$/,
           loader: "file-loader?name=[name].[ext]"
         }
       ]
@@ -98,7 +114,13 @@ module.exports = {
         'process.env': {
           'NODE_ENV': JSON.stringify('production')
         }
-      })
+      }),
+      new webpack.ProvidePlugin({
+        '$':'jquery',
+        'jQuery':'jquery',
+        'Promise': 'bluebird'
+      }),
+
     ] : [
       //development mode
       new webpack.HotModuleReplacementPlugin(),
@@ -114,8 +136,7 @@ module.exports = {
       new webpack.ProvidePlugin({
         '$':'jquery',
         'jQuery':'jquery',
-        'Promise': 'bluebird',
-        'semantic':path.join(__dirname,'web','semantic','semantic.min')
+        'Promise': 'bluebird'
       }),
       new HtmlWebpackPlugin({
         template: path.resolve('./web/', 'index.html'),

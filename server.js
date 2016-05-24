@@ -55,7 +55,6 @@ function renderPage(appHtml) {
     <title>Baram</title>
     <!-- HEAD_SCRIPT -->
     <!-- HEAD_STYLE -->
-    <link rel="stylesheet" type="text/css" href="/modules/semantic-ui/semantic.min.css"/>
     <link rel="stylesheet" type="text/css" href="/static/init.css"/>
   </head>
   <body>

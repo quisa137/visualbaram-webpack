@@ -6,7 +6,6 @@ import routes from './routes'
 
 //Style loading
 require('../static/init.css');
-require('../semantic/semantic.min.css');
 
 render(
   <Router routes={routes} history={browserHistory}/>,
