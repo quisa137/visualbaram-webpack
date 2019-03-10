@@ -1,4 +1,4 @@
-/* eslint-disable no-var, strict */
+/*eslint-disable no-var, strict*/
 /*eslint jsx-quotes: ["error", "prefer-single"]*/
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
